@@ -1,10 +1,32 @@
 import styles from '../styles/home.module.css';
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useEffect,useState } from 'react';
 import {Comment} from '../components';
+import { getPosts } from '../components/api';
+import Loader from './Loader';
 
-const Home = ({posts}) => {
-  console.log(posts);
+const Home = () => {
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState([]);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const response = await getPosts();
+
+      if (response.success) {
+        console.log("HOME POSTS")
+        setPosts(response.data);
+      }
+
+      setLoading(false);
+    };
+
+    fetchPosts();
+  }, []);
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div className={styles.postsList}>
@@ -70,7 +92,5 @@ const Home = ({posts}) => {
       
   );
 };
-Home.propTypes={
-posts:PropTypes.array.isRequired,
-}
+
 export default Home;

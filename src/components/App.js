@@ -1,25 +1,24 @@
-import {useEffect,useState} from 'react';
-import {getPosts} from './api';
-import {Home,Loader,Login,Error} from '../pages';
+import {useAuth} from '../hooks';
+import {Home,Loader,Login,Error,Signup,Settings} from '../pages';
 import Navbar  from './Navbar';
 import { Routes,Route } from 'react-router-dom';
+import {Navigate,Outlet} from 'react-router-dom'
+function RequireAuth({ children }: { children: JSX.Element }) {
+  let auth = useAuth();
+
+  if (!auth.user) {
+    // Redirect them to the /login page, but save the current location they were
+    // trying to go to when they were redirected. This allows us to send them
+    // along to that page after they login, which is a nicer user experience
+    // than dropping them off on the home page.
+    return <Navigate to="/login"/>;
+  }
+
+  return children;
+}
 function App() {
- const[posts,setPosts]=useState([]); 
- const [loading,setLoading]=useState(true);
-  
-    useEffect( ()=>{
-       const fetchPosts=async()=>{
-         const response=await getPosts();
-         console.log('response',response);
-        if(response.success)
-        {
-          setPosts(response.data);
-        }
-        setLoading(false);
-        }
-        fetchPosts();
-    },[]);
-    if(loading)
+  const auth=useAuth();
+    if(auth.loading)
     {
       return <Loader/>
     }
@@ -28,12 +27,17 @@ function App() {
       <Navbar/>
       <Routes>
       
-        <Route path='/' element={<Home posts={posts}/>}>
+        <Route path="/" element={<Home/>}>
         </Route>
         <Route path="login" element={<Login/>}>
           </Route>
           <Route path="*" element={<Error/>}>
           </Route>
+          <Route path="register" element={<Signup/>}>
+          </Route>
+          <Route path="/settings" element={<RequireAuth><Settings/></RequireAuth> }/>
+        
+          
       </Routes>
       
     </div>
