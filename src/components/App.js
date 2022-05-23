@@ -1,5 +1,5 @@
 import {useAuth} from '../hooks';
-import {Home,Loader,Login,Error,Signup,Settings} from '../pages';
+import {Home,Loader,Login,Error,Signup,Settings,UserProfile} from '../pages';
 import Navbar  from './Navbar';
 import { Routes,Route } from 'react-router-dom';
 import {Navigate,Outlet} from 'react-router-dom'
@@ -18,6 +18,7 @@ function RequireAuth({ children }: { children: JSX.Element }) {
 }
 function App() {
   const auth=useAuth();
+  console.log('auth',auth);
     if(auth.loading)
     {
       return <Loader/>
@@ -36,6 +37,7 @@ function App() {
           <Route path="register" element={<Signup/>}>
           </Route>
           <Route path="/settings" element={<RequireAuth><Settings/></RequireAuth> }/>
+          <Route path="/user/:userId" element={<RequireAuth><UserProfile/></RequireAuth> }/>
         
           
       </Routes>

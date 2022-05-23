@@ -3,6 +3,7 @@ import React from 'react';
 import { useEffect,useState } from 'react';
 import {Comment} from '../components';
 import { getPosts } from '../components/api';
+import{Link} from 'react-router-dom';
 import Loader from './Loader';
 
 const Home = () => {
@@ -14,7 +15,7 @@ const Home = () => {
       const response = await getPosts();
 
       if (response.success) {
-        console.log("HOME POSTS")
+       
         setPosts(response.data);
       }
 
@@ -40,7 +41,17 @@ const Home = () => {
               alt="user-pic"
             />
             <div>
-              <span className={styles.postAuthor}>{post.user.name}</span>
+            <Link
+                  to={{
+                    pathname: `/user/${post.user._id}`,
+                    state: {
+                      user: post.user,
+                    },
+                  }}
+                  className={styles.postAuthor}
+                >
+                  {post.user.name}
+                </Link>
               <span className={styles.postTime}>a minute ago</span>
             </div>
           </div>
