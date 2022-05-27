@@ -91,7 +91,7 @@ const UserProfile = () => {
 
     if (response.success) {
       const  friendship  = response.data.friend;
-      console.log(friendship,"7yhtgbhhrgvef");
+     
 
       auth.updateUserFriends(true, friendship);
       addToast('Friend added successfully!', {

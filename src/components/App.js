@@ -5,6 +5,7 @@ import { Routes,Route } from 'react-router-dom';
 import {Navigate,Outlet} from 'react-router-dom'
 function RequireAuth({ children }: { children: JSX.Element }) {
   let auth = useAuth();
+  
 
   if (!auth.user) {
     // Redirect them to the /login page, but save the current location they were

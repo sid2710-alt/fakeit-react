@@ -39,7 +39,7 @@ const Settings = () => {
     }
 
     if (error) {
-      console.log(error);
+      
       return setSavingForm(false);
     }
 
@@ -50,7 +50,7 @@ const Settings = () => {
       confirmPassword
     );
 
-    console.log('settings response', response);
+    
     if (response.success) {
       setEditMode(false);
       setSavingForm(false);

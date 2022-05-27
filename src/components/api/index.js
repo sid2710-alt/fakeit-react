@@ -85,3 +85,20 @@ export const removeFriend = (userId,friend_id) => {
     
   });
 };
+export const addPost = (content,userId) => {
+  return customFetch(API_URLS.createPost(userId), {
+    method: 'POST',
+    body: {
+      content,
+    },
+  });
+};
+export const createComment = (content,userId,postId) => {
+  return customFetch(API_URLS.comment(userId), {
+    method: 'POST',
+    body: {
+      post:postId,
+      content:content,
+    },
+  });
+};

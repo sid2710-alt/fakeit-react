@@ -4,7 +4,7 @@ import './styles/index.css';
 import {App} from './components';
 import { BrowserRouter } from 'react-router-dom';
 import { ToastProvider } from 'react-toast-notifications';
-import { AuthProvider } from './providers/AuthProvider';
+import { AuthProvider,PostsProvider } from './providers';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -13,7 +13,12 @@ root.render(
     <BrowserRouter>
     <ToastProvider autoDismiss autoDismissTimeout={5000} placement="top-left">
     <AuthProvider>
-    <App />
+      <PostsProvider>
+      <App />
+      </PostsProvider>
+
+    
+    
     </AuthProvider>
        
         

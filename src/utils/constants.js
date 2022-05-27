@@ -6,7 +6,7 @@ export const API_URLS = {
   signup: () => `http://localhost:3000/api/v1/users/create-user`,
 //   posts: (page, limit) => `${API_ROOT}/posts?page=${page}&limit=${limit}`,
   posts : (page=1 , limit=5) => `http://localhost:3000/api/v1/posts`,
-  createPost: (content) => `${API_ROOT}/posts/create`,
+  createPost:(userId)=> `http://localhost:3000/api/v1/posts/create/${userId}`,
   createFriendship: (userId,friend_id) =>
     `http://localhost:3000/api/v1/users/add-friend/${userId}/${friend_id}`, 
   friends: (id) => `http://localhost:3000/api/v1/users/user-friends/${id}`,
@@ -16,7 +16,7 @@ export const API_URLS = {
     `${API_ROOT}/likes/toggle?likeable_id=${itemId}&likeable_type=${itemType}`, // itemType is 'Post'/'Comment'
   getLikes: (itemId, itemType) =>
     `${API_ROOT}/likes?likeable_id=${itemId}&likeable_type=${itemType}`,
-  comment: () => `${API_ROOT}/comments`, // POST - create, GET - list of comments
+  comment: (userId) => `http://localhost:3000/api/v1/posts/create/comment/${userId}`, // POST - create, GET - list of comments
   deleteComment: (commentId) => `${API_ROOT}/comments?comment_id=${commentId}`,
   editUser: () => `http://localhost:3000/api/v1/users/update`,
   userInfo: (userId) => `http://localhost:3000/api/v1/users/detail/${userId}`,
