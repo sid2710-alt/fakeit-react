@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
 
-import { createComment } from '../components/api';
+import { createComment ,toggleLike} from '../components/api';
 import { useAuth, usePosts } from '../hooks';
 import styles from '../styles/home.module.css';
 import  Comment  from './Comment';
@@ -18,7 +18,8 @@ const Posts=({post})=>{
     if(e.key==='Enter'){
       console.log(comment,"^^^^^^^^");
       setCreatingComment(true);
-      const response=await createComment(comment,user.user._id,post._id);
+      let response=await createComment(comment,user.user._id,post._id);
+      console.log(response)
       if(response.success){
         setComment('');
         console.log(response);
@@ -36,7 +37,33 @@ const Posts=({post})=>{
     }
     
   };
-  const handlePostLikeClick
+  const handlePostLike= async ()=>{
+    console.log('Hello');
+    const response=await toggleLike(user.user._id,post._id,'Post');
+    console.log(response.message,"66677888")
+    // if(response.success){
+      
+    //   if(response.data.deleted)
+    //   {
+    //     addToast('Like Removed Successfully',{
+    //       appearance:'success',
+    //     });
+    //   }
+    //   else
+    //   {
+    //     addToast('Like Added Successfully',{
+    //       appearance:'success',
+    //     });
+    //   }
+    // }
+    // else
+    // {
+    //   addToast(response.message,{
+    //     appearance:'error',
+    //   });
+
+    // }
+  }
     return (
       <div className={styles.postWrapper}>
             <div className={styles.postHeader}>
@@ -64,7 +91,7 @@ const Posts=({post})=>{
     
               <div className={styles.postActions}>
                 <div className={styles.postLike}>
-                  <button on onClick={handlepostlike}>
+                  <button  onClick={handlePostLike}>
                   <img
                     src="https://cdn-icons-png.flaticon.com/128/126/126473.png"
                     alt="likes-icon"
